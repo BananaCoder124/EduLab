@@ -3,22 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
   <title>EduLab - Vähemmän valmistelua, enemmän opettamista.</title>
-  <meta name="description" content="Opettajien jakamia työohjeita, laboratoriotöitä ja projekti-ideoita LUMA-aineisiin.">
-  <meta property="og:title" content="Opepankki – materiaalipankki LUMA-opettajille">
-  <meta property="og:description" content="Lataa, jaa ja muokkaa opettajien valmiita materiaaleja.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-
+  
+  <!-- Open Sans -fontti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app"></div>
+
+  <!-- KIRJAUTUMISNÄKYMÄ (AUTH) -->
+  <main id="authView" class="auth-layout">
+    <section class="auth-hero paper-grid">
+      <div class="brand-wrapper">
+        <div class="brand-row">
+          <img src="download.jpg" alt="EduLab logo" class="brand-logo" onerror="this.style.display='none'">
+          <span class="brand-name"><strong class="brand-edu">Edu</strong><span class="brand-lab">Lab</span></span>
+        </div>
+        <p class="brand-slogan">Vähemmän valmistelua, enemmän opettamista.</p>
+      </div>
+
+      <div class="auth-hero-content">
+        <h1 class="hero-title">Valmiita, testattuja materiaaleja – opettajilta opettajille.</h1>
+        <p class="hero-desc">Työohjeet, laboratoriotyöt ja projekti-ideat LUMA-aineisiin. Lataa, jaa ja muokkaa omiin tarpeisiisi.</p>
+      </div>
+
+      <span class="demo-tag">Demo – tietoja ei tallenneta palvelimelle.</span>
+    </section>
+
+    <section class="auth-form-container">
+      <form id="authForm" class="auth-card" novalidate>
+        <div class="auth-mobile-brand">
+          <div class="brand-row center">
+            <img src="download.jpg" alt="EduLab logo" class="brand-logo sm" onerror="this.style.display='none'">
+            <span class="brand-name"><strong class="brand-edu">Edu</strong><span class="brand-lab">Lab</span></span>
+          </div>
+          <p class="brand-slogan">Vähemmän valmistelua, enemmän opettamista.</p>
+        </div>
+
+        <h2 id="authTitle" class="form-title">Kirjaudu sisään</h2>
+
+        <div id="nameField" class="field-group hidden">
+          <label for="inputName">Nimi</label>
+          <input type="text" id="inputName" placeholder="Matti Meikäläinen">
+        </div>
+
+        <div class="field-group">
+          <label for="inputEmail">Sähköposti</label>
+          <input type="email" id="inputEmail" placeholder="opettaja@koulu.fi" required>
+        </div>
+
+        <div class="field-group">
+          <label for="inputPw">Salasana</label>
+          <input type="password" id="inputPw" placeholder="Vähintään 6 merkkiä" required>
+        </div>
+
+        <p id="authError" class="error-msg hidden"></p>
+
+        <button type="submit" id="authSubmitBtn" class="btn btn-primary btn-block">Kirjaudu</button>
+
+        <p class="toggle-mode-text">
+          <span id="toggleQuestion">Eikö sinulla ole tiliä? </span>
+          <button type="button" id="toggleModeBtn" class="link-btn">Rekisteröidy</button>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <!-- PÄÄSOVELLUS (MATERIAALIPANKKI) -->
+  <div id="appView" class="hidden">
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand-group">
+          <div class="brand-row">
+            <img src="download.jpg" alt="EduLab logo" class="brand-logo sm" onerror="this.style.display='none'">
+            <span class="brand-name"><strong class="brand-edu">Edu</strong><span class="brand-lab">Lab</span></span>
+          </div>
+          <p class="brand-slogan-header">Vähemmän valmistelua, enemmän opettamista.</p>
+        </div>
+
+        <div class="header-actions">
+          <span id="userGreeting" class="user-greeting"></span>
+          <button id="addMaterialBtn" class="btn btn-accent">+ Lisää materiaali</button>
+          <button id="logoutBtn" class="btn btn-outline">Kirjaudu ulos</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <h1 class="page-title">Materiaalipankki</h1>
+      <p class="page-subtitle">Hae opettajien jakamia materiaaleja aineen tai avainsanan mukaan.</p>
+
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Hae avainsanalla, esim. heiluri, titraus, GeoGebra…">
+      </div>
+
+      <div id="subjectChips" class="chip-group"></div>
+
+      <div id="emptyState" class="empty-state hidden">
+        <p class="empty-title">Ei tuloksia vielä.</p>
+        <p class="empty-desc">Ole ensimmäinen ja jaa oma materiaalisi muille.</p>
+      </div>
+
+      <div id="cardGrid" class="card-grid"></div>
+    </main>
+  </div>
+
+  <!-- MATERIAALIN TIETOIKKUNA (MODAL) -->
+  <div id="detailModal" class="modal-backdrop hidden">
+    <div class="modal-window">
+      <div class="modal-meta" id="detailMeta"></div>
+      <h2 class="modal-title" id="detailTitle"></h2>
+      <p class="modal-author" id="detailAuthor"></p>
+      <p class="modal-desc" id="detailDesc"></p>
+      <pre class="modal-content" id="detailContent"></pre>
+      <p id="detailAttachment" class="modal-attachment hidden"></p>
+      <div class="modal-footer">
+        <button id="detailDownloadBtn" class="btn btn-primary">Lataa</button>
+        <button id="detailShareBtn" class="btn btn-outline">Jaa</button>
+        <button id="detailEditBtn" class="btn btn-accent">Muokkaa omaksi versioksi</button>
+        <button id="detailCloseBtn" class="btn btn-outline">Sulje</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISÄÄ / MUOKKAA -IKKUNA (MODAL) -->
+  <div id="editorModal" class="modal-backdrop hidden">
+    <div class="modal-window editor-window">
+      <h2 class="modal-title" id="editorTitle">Lisää materiaali</h2>
+      <form id="editorForm">
+        <div class="field-group">
+          <label for="editTitle">Otsikko</label>
+          <input type="text" id="editTitle" required placeholder="Esim. Heilurin jaksonaika">
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="editSubject">Oppiaine</label>
+            <select id="editSubject"></select>
+          </div>
+          <div class="field-group">
+            <label for="editType">Tyyppi</label>
+            <select id="editType"></select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="editDesc">Lyhyt kuvaus</label>
+          <input type="text" id="editDesc" required placeholder="1-2 lausetta, miksi materiaali on hyvä">
+        </div>
+
+        <div class="field-group">
+          <label for="editContent">Ohje / Sisältö</label>
+          <textarea id="editContent" rows="6" required placeholder="Kirjoita ohje, välineet, vaiheet tai linkki materiaalipakettiin..."></textarea>
+        </div>
+
+        <div class="field-group">
+          <label>Liitetiedosto (valinnainen)</label>
+          <div class="file-upload-box">
+            <input type="file" id="editFile" class="file-input">
+            <span id="fileNameLabel" class="file-name-label">Klikkaa ja valitse tiedosto</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="editAuthor">Tekijänimi</label>
+          <input type="text" id="editAuthor" placeholder="Oma nimi tai Anonyymi">
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-accent">Julkaise materiaali</button>
+          <button type="button" id="editorCancelBtn" class="btn btn-outline">Peruuta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST-ILMOITUS -->
+  <div id="toast" class="toast hidden"></div>
+
   <script src="app.js"></script>
 </body>
 </html>
