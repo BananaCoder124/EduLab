@@ -55,7 +55,7 @@ body {
 
 /* Logo: puolet nykyistä suurempi (+50 %) */
 .brand-logo {
-  height: 72px;        /* Aiemmin 48px -> nyt 1.5x suurempi */
+  height: 72px;        /* Aiemmin 48px -> 1.5x suurempi */
   width: auto;
   max-width: 220px;
   object-fit: contain;
@@ -63,15 +63,15 @@ body {
 }
 
 .brand-logo.sm {
-  height: 57px;        /* Aiemmin 38px -> nyt 1.5x suurempi */
+  height: 57px;        /* Aiemmin 38px -> 1.5x suurempi */
 }
 
-/* Nimi: hieman suurempi fontti ja väriksi puhdas musta */
+/* Nimi: suurempi fontti ja värinä puhdas musta */
 .brand-name {
   font-family: var(--font-family);
-  font-size: 2.15rem;   /* Hieman suurempi (aiemmin 1.75rem) */
+  font-size: 2.15rem;   /* Suurennettu (aiemmin 1.75rem) */
   letter-spacing: -0.02em;
-  color: #000000;      /* Koko nimi musta */
+  color: #000000;       /* Koko nimi puhdas musta */
   line-height: 1.1;
   display: inline-flex;
   align-items: baseline;
@@ -79,12 +79,12 @@ body {
 
 .brand-edu {
   font-weight: 800;
-  color: #000000;      /* Musta */
+  color: #000000;
 }
 
 .brand-lab {
   font-weight: 400;
-  color: #000000;      /* Musta */
+  color: #000000;
 }
 
 .brand-slogan {
