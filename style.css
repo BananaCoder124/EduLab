@@ -1,47 +1,103 @@
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.975 0.012 85);
-  --foreground: oklch(0.22 0.03 160);
-  --card: oklch(0.995 0.005 85);
-  --card-foreground: oklch(0.22 0.03 160);
-  --primary: oklch(0.38 0.08 160);
-  --primary-foreground: oklch(0.98 0.01 85);
-  --secondary: oklch(0.93 0.025 85);
-  --secondary-foreground: oklch(0.25 0.03 160);
-  --muted: oklch(0.94 0.015 85);
-  --muted-foreground: oklch(0.48 0.03 160);
-  --accent: oklch(0.78 0.14 65);
-  --accent-foreground: oklch(0.22 0.03 160);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.88 0.02 85);
-  --shadow-soft: 0 8px 30px -12px oklch(0.38 0.08 160 / 0.25);
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Figtree", system-ui, -apple-system, sans-serif;
+  --font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+  --bg: #faf8f5;
+  --card-bg: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --primary: #15803d;
+  --primary-hover: #166534;
+  --primary-fg: #ffffff;
+  --accent: #d97706;
+  --accent-hover: #b45309;
+  --accent-fg: #ffffff;
+  --secondary: #eef2eb;
+  --border: #e5e7eb;
+  --destructive: #dc2626;
+  --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border-color: var(--border);
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  min-height: 100vh;
+  font-family: var(--font-family);
+  background-color: var(--bg);
+  color: var(--text-main);
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
-h1, h2, h3 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--foreground);
+/* LOGO & BRÄNDÄYS */
+.brand-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-/* Kirjautumissivun asettelu */
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-row.center {
+  justify-content: center;
+}
+
+.brand-logo {
+  height: 48px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.brand-logo.sm {
+  height: 38px;
+}
+
+.brand-name {
+  font-family: var(--font-family);
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  line-height: 1.1;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.brand-edu {
+  font-weight: 800;
+}
+
+.brand-lab {
+  font-weight: 400;
+  color: var(--text-main);
+}
+
+.brand-slogan {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.brand-slogan-header {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .brand-slogan-header {
+    display: none;
+  }
+}
+
+/* KIRJAUTUMINEN */
 .auth-layout {
   display: grid;
   min-height: 100vh;
@@ -55,14 +111,10 @@ h1, h2, h3 {
 
 .auth-hero {
   display: none;
-  flex-direction: column;
-  justify-content: space-between;
   background-color: var(--secondary);
   padding: 3rem;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 28px 28px;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @media (min-width: 768px) {
@@ -71,26 +123,33 @@ h1, h2, h3 {
   }
 }
 
-.brand-title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary);
-  text-decoration: none;
+.paper-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-.auth-hero h1 {
-  font-size: 3rem;
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
   line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
-.auth-hero p {
+.hero-desc {
   margin-top: 1rem;
+  font-size: 1.125rem;
+  color: var(--text-muted);
   max-width: 28rem;
-  color: var(--muted-foreground);
 }
 
-.auth-panel {
+.demo-tag {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.auth-form-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,383 +159,475 @@ h1, h2, h3 {
 .auth-card {
   width: 100%;
   max-width: 24rem;
-  background: var(--card);
+  background-color: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 1rem;
   padding: 2rem;
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  box-shadow: var(--shadow);
 }
 
-.auth-card h2 {
-  font-size: 1.875rem;
+.auth-mobile-brand {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+@media (min-width: 768px) {
+  .auth-mobile-brand {
+    display: none;
+  }
 }
 
-.field-label {
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+/* LOMAKEKENTÄT */
+.field-group {
+  margin-bottom: 1rem;
+}
+
+.field-group label {
+  display: block;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
-.input, .textarea, .select {
+.field-group input,
+.field-group select,
+.field-group textarea {
   width: 100%;
-  border-radius: 0.375rem;
+  padding: 0.625rem 0.75rem;
   border: 1px solid var(--border);
-  background: var(--card);
-  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
   font-family: inherit;
   font-size: 0.95rem;
-  color: inherit;
   outline: none;
+  background-color: #fff;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.input:focus, .textarea:focus, .select:focus {
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px oklch(0.38 0.08 160 / 0.35);
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.error-msg {
+  color: var(--destructive);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.toggle-mode-text {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+/* PAINIKKEET */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+  text-decoration: none;
 }
 
 .btn-primary {
-  width: 100%;
-  border-radius: 0.375rem;
-  background: var(--primary);
-  color: var(--primary-foreground);
-  padding: 0.625rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s;
+  background-color: var(--primary);
+  color: var(--primary-fg);
 }
 
 .btn-primary:hover {
-  opacity: 0.92;
+  background-color: var(--primary-hover);
 }
 
 .btn-accent {
-  border-radius: 0.375rem;
-  background: var(--accent);
-  color: var(--accent-foreground);
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s;
+  background-color: var(--accent);
+  color: var(--accent-fg);
 }
 
 .btn-accent:hover {
-  opacity: 0.92;
+  background-color: var(--accent-hover);
 }
 
 .btn-outline {
-  border-radius: 0.375rem;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: inherit;
-  padding: 0.5rem 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.15s;
+  background-color: #fff;
+  border-color: var(--border);
+  color: var(--text-main);
 }
 
 .btn-outline:hover {
-  background: var(--muted);
+  background-color: #f3f4f6;
 }
 
-.error-text {
-  font-size: 0.875rem;
-  color: var(--destructive);
+.btn-block {
+  width: 100%;
+  padding: 0.75rem;
 }
 
-.toggle-text {
-  text-align: center;
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-}
-
-.toggle-btn {
+.link-btn {
   background: none;
   border: none;
   color: var(--primary);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
-  padding: 0;
-  font-size: inherit;
+  font-family: inherit;
 }
 
-/* Yläpalkki */
+/* PÄÄNÄKYMÄN YLÄPALKKI */
 .app-header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  border-bottom: 1px solid var(--border);
-  background: oklch(0.975 0.012 85 / 0.9);
+  z-index: 20;
+  background-color: rgba(250, 248, 245, 0.95);
   backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
 }
 
 .header-inner {
   max-width: 72rem;
   margin: 0 auto;
+  padding: 0.75rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  gap: 1rem;
+}
+
+.brand-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.user-greeting {
   font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
-.header-user {
-  display: none;
-  color: var(--muted-foreground);
-}
-
-@media (min-width: 640px) {
-  .header-user {
-    display: inline;
+@media (max-width: 640px) {
+  .user-greeting {
+    display: none;
   }
 }
 
-/* Pääsisältö */
-.library-main {
+/* SISÄLTÖ */
+.app-main {
   max-width: 72rem;
   margin: 0 auto;
   padding: 2.5rem 1.5rem;
 }
 
-.library-main h1 {
+.page-title {
   font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
-.search-input {
+.page-subtitle {
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}
+
+.search-box {
   margin-top: 1.5rem;
+}
+
+.search-box input {
   width: 100%;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  background: var(--card);
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1.25rem;
   font-size: 1.125rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background-color: #fff;
   outline: none;
-  box-shadow: var(--shadow-soft);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+  box-shadow: var(--shadow);
 }
 
-.search-input:focus {
+.search-box input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px oklch(0.38 0.08 160 / 0.35);
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15);
 }
 
-/* Ainesuodattimet */
-.subject-chips {
-  margin-top: 1.25rem;
+/* AIHENAPIT (CHIPS) */
+.chip-group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 1.25rem;
 }
 
-.chip-btn {
-  border-radius: 9999px;
-  border: 1px solid var(--border);
+.chip {
   padding: 0.375rem 1rem;
+  border-radius: 9999px;
   font-size: 0.875rem;
-  background: var(--card);
-  color: inherit;
+  font-family: inherit;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background-color: #fff;
   cursor: pointer;
   transition: all 0.15s;
 }
 
-.chip-btn:hover {
-  background: var(--muted);
+.chip:hover {
+  background-color: #f3f4f6;
 }
 
-.chip-btn.active {
+.chip.active {
+  background-color: var(--primary);
+  color: var(--primary-fg);
   border-color: var(--primary);
-  background: var(--primary);
-  color: var(--primary-foreground);
 }
 
-/* Korttiruudukko */
-.cards-grid {
-  margin-top: 2rem;
+/* KORTIT */
+.card-grid {
   display: grid;
   gap: 1.25rem;
+  margin-top: 2rem;
 }
 
 @media (min-width: 640px) {
-  .cards-grid {
+  .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .cards-grid {
+  .card-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.material-card {
+.card {
+  background-color: #fff;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--card);
-  padding: 1.25rem;
-  transition: box-shadow 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.material-card:hover {
-  box-shadow: var(--shadow-soft);
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
-.card-badges {
+.card-tags {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
   font-size: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
-.badge-subject {
+.tag-subject {
+  background-color: var(--secondary);
+  padding: 0.2rem 0.6rem;
   border-radius: 9999px;
-  background: var(--secondary);
-  padding: 0.25rem 0.625rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.badge-type {
-  border-radius: 9999px;
+.tag-type {
   border: 1px solid var(--border);
-  padding: 0.25rem 0.625rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
 }
 
-.material-card h3 {
-  margin-top: 0.75rem;
+.card-title {
   font-size: 1.25rem;
+  font-weight: 700;
   line-height: 1.3;
 }
 
 .card-desc {
-  margin-top: 0.5rem;
-  flex: 1;
+  color: var(--text-muted);
   font-size: 0.875rem;
-  color: var(--muted-foreground);
+  margin-top: 0.5rem;
+  flex-grow: 1;
 }
 
 .card-meta {
-  margin-top: 1rem;
   font-size: 0.75rem;
-  color: var(--muted-foreground);
+  color: var(--text-muted);
+  margin-top: 1rem;
 }
 
 .card-actions {
-  margin-top: 1rem;
   display: flex;
   gap: 0.5rem;
-  font-size: 0.875rem;
+  margin-top: 1rem;
 }
 
 .card-actions .btn-primary {
-  flex: 1;
-  padding: 0.5rem;
+  flex-grow: 1;
 }
 
-/* Tyhjä tulos */
+/* TYHJÄ TILA */
 .empty-state {
-  margin-top: 4rem;
-  border-radius: var(--radius);
-  border: 1px dashed var(--border);
+  margin-top: 3rem;
+  border: 2px dashed var(--border);
+  border-radius: 1rem;
   padding: 3rem;
   text-align: center;
 }
 
-.empty-state h3 {
+.empty-title {
   font-size: 1.5rem;
+  font-weight: 700;
 }
 
-.empty-state p {
+.empty-desc {
+  color: var(--text-muted);
   margin-top: 0.5rem;
-  color: var(--muted-foreground);
 }
 
-/* Modaalit */
-.modal-overlay {
+/* MODALIT */
+.modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: oklch(0.22 0.03 160 / 0.4);
   padding: 1rem;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+}
+
+.modal-window {
+  background-color: #fff;
+  border-radius: 1rem;
+  max-width: 42rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-meta {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.modal-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-top: 0.25rem;
+}
+
+.modal-author {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.modal-desc {
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
 .modal-content {
-  max-height: 90vh;
-  width: 100%;
-  max-width: 42rem;
-  overflow-y: auto;
-  border-radius: var(--radius);
-  background: var(--card);
-  padding: 2rem;
-  box-shadow: var(--shadow-soft);
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  color: var(--muted-foreground);
-  cursor: pointer;
-}
-
-.modal-pre {
   margin-top: 1rem;
-  white-space: pre-wrap;
+  background-color: #f9fafb;
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
-  background: var(--muted);
   padding: 1rem;
+  white-space: pre-wrap;
   font-family: inherit;
   font-size: 0.875rem;
+  line-height: 1.6;
 }
 
-.modal-actions {
-  margin-top: 1.5rem;
+.modal-attachment {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.modal-footer {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
-@media (min-width: 640px) {
-  .editor-selects {
-    grid-template-columns: 1fr 1fr;
-  }
+/* TIEDOSTON VALINTA */
+.file-upload-box {
+  position: relative;
+  border: 2px dashed var(--border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  cursor: pointer;
 }
 
-/* Ilmoitusviesti */
-.toast-msg {
+.file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.file-name-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* TOAST */
+.toast {
   position: fixed;
   bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 9999px;
-  background: var(--foreground);
-  color: var(--background);
-  padding: 0.5rem 1.25rem;
+  right: 1.5rem;
+  background-color: #1f2937;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
-  z-index: 50;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none !important;
 }
